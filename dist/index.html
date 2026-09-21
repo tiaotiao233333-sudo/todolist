@@ -41,7 +41,7 @@
     </aside>
   </main><div class="notice" id="notice" role="status"></div>
   <script>
-    const key='calendar-todo-v1',today=new Date(),iso=d=>{const x=new Date(d);x.setMinutes(x.getMinutes()-x.getTimezoneOffset());return x.toISOString().slice(0,10)},todayKey=iso(today);
+    const key='calendar-todo-v1',beijing=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value])),today=new Date(+beijing.year,+beijing.month-1,+beijing.day,12),iso=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`,todayKey=iso(today);
     let data=JSON.parse(localStorage.getItem(key)||'null')||{calendar:{},today:[],fixed:[],completed:{}};let view=new Date(today.getFullYear(),today.getMonth(),1),selected=todayKey,dragTask=null;
     const $=s=>document.querySelector(s),monthFmt=new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'long'}),dateFmt=new Intl.DateTimeFormat('zh-CN',{month:'long',day:'numeric',weekday:'short'});
     const save=()=>localStorage.setItem(key,JSON.stringify(data)); const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);

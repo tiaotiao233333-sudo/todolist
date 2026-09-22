@@ -94,5 +94,6 @@
     $('#sleepTime').addEventListener('click',e=>{e.currentTarget.focus();try{e.currentTarget.showPicker()}catch{}});
     const cleanCalendarDecorate=decorateCalendar;decorateCalendar=()=>{cleanCalendarDecorate();document.querySelectorAll('.event-chip .calendar-task span').forEach(span=>span.textContent=span.textContent.replace(/^✓\s/,''))};renderCalendar();
     const deletableCalendarDecorate=decorateCalendar;decorateCalendar=()=>{deletableCalendarDecorate();document.querySelectorAll('.event-chip:not(.extra)').forEach(el=>{el.title='右键删除此任务';el.addEventListener('contextmenu',e=>{e.preventDefault();const list=data.calendar[el.dataset.date]||[];data.calendar[el.dataset.date]=list.filter(task=>task.id!==el.dataset.id);save();renderCalendar();toast('任务已删除')})})};renderCalendar();
+    const enterSafeCalendarDecorate=decorateCalendar;decorateCalendar=()=>{enterSafeCalendarDecorate();document.querySelectorAll('.calendar-inline-form input').forEach(input=>input.addEventListener('keydown',e=>{if(e.key==='Enter')e.stopPropagation()}))};renderCalendar();
   </script>
 </body></html>
